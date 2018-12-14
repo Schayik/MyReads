@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 
 import React from 'react'
 import './App.css'
@@ -31,21 +30,23 @@ class BooksApp extends React.Component {
 
   addBookToShelf(book, shelf) {
     if (shelf === 'currentlyReading') {
-      this.setState(() => {
+      this.setState({
         booksCurrentlyReading: [...this.state.booksCurrentlyReading, book]
       })
     } else if (shelf === 'wantToRead') {
-      this.setState(() => {
+      this.setState({
         booksWantToRead: [...this.state.booksWantToRead, book]
       })
     } else if (shelf === 'read') {
-      this.setState(() => {
+      console.log(this.state.booksRead)
+      this.setState({
         booksRead: [...this.state.booksRead, book]
       })
     }
   }
 
   render() {
+    console.log(this.state.booksRead)
     return (
       <div className="app">
         <div className="list-books">
