@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class BookSearch extends Component {
 
@@ -11,12 +12,6 @@ class BookSearch extends Component {
     this.setState(() => ({
       query: query.trim()
     }))
-  }
-
-  handleChange(book, event) {
-    this.props.addBookToShelf(book, event.target.value);
-    console.log(event.target.value);
-    console.log(book);
   }
 
   render() {
@@ -32,7 +27,11 @@ class BookSearch extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+          <Link
+            className='close-search'
+            to='/'>
+              Close
+          </Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -59,7 +58,7 @@ class BookSearch extends Component {
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                     <div className="book-shelf-changer">
-                      <select onChange={(event) => this.handleChange(book, event)}>
+                      <select onChange={event => this.props.moveBook(book, event.target.value)}>
                         <option value="move" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
