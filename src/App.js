@@ -8,16 +8,6 @@ import { Route } from 'react-router-dom'
 class BooksApp extends Component {
   state = {
     books: [],
-    booksCurrentlyReading: [],
-    booksWantToRead: [],
-    booksRead: [],
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: true,
   }
 
   componentDidMount() {
@@ -29,21 +19,11 @@ class BooksApp extends Component {
   }
 
   moveBook = (book, shelf) => {
-    if (shelf === 'currentlyReading') {
-      console.log("new current")
-      this.setState({
-        booksCurrentlyReading: [...this.state.booksCurrentlyReading, book]
-      })
-    } else if (shelf === 'wantToRead') {
-      console.log("new wantto")
-      this.setState({
-        booksWantToRead: [...this.state.booksWantToRead, book]
-      })
-    } else if (shelf === 'read') {
-      this.setState({
-        booksRead: [...this.state.booksRead, book]
-      })
-    }
+    book.shelf = shelf;
+    BooksAPI.update(book, shelf)
+    this.setState(state => ({
+      books: this.state.books.filter(b => b.id !== book.id).concat([book])
+    }))
   }
 
   render() {
@@ -55,9 +35,15 @@ class BooksApp extends Component {
           </div>
           <Route exact path='/' render={() => (
             <Bookcase
-              booksCurrentlyReading={this.state.booksCurrentlyReading}
-              booksWantToRead={this.state.booksWantToRead}
-              booksRead={this.state.booksRead}
+              booksCurrentlyReading={this.state.books.filter( book => {
+                return book.shelf === 'currentlyReading'
+              })}
+              booksWantToRead={this.state.books.filter( book => {
+                return book.shelf === 'wantToRead'
+              })}
+              booksRead={this.state.books.filter( book => {
+                return book.shelf === 'read'
+              })}
               moveBook={this.moveBook}
             />
           )} />
