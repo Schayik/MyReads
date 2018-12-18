@@ -1,7 +1,8 @@
 import React from 'react'
-import BookList from './BookList.js'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+
+import BookList from './BookList.js'
 
 function Bookcase(props) {
   return (

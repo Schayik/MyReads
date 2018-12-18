@@ -1,6 +1,7 @@
 import React from 'react'
-import MoveBook from './MoveBook.js'
 import PropTypes from 'prop-types'
+
+import MoveBook from './MoveBook.js'
 
 function BookList(props) {
   return (

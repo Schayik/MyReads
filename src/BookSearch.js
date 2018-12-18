@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import BookList from './BookList.js'
-import * as BooksAPI from './BooksAPI'
 import PropTypes from 'prop-types'
 import DebounceInput from 'react-debounce-input'
+import { Link } from 'react-router-dom'
+
+import * as BooksAPI from './BooksAPI'
+import BookList from './BookList.js'
 
 class BookSearch extends Component {
 
